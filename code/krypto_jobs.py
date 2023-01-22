@@ -80,7 +80,9 @@ w3 = Web3(Web3.HTTPProvider("HTTP://127.0.0.1:7545"))
 # @TODO:
 # From `crypto_wallet.py import the functions generate_account, get_balance,
 #  and send_transaction
-# YOUR CODE HERE
+
+from crypto_wallet import generate_account,  get_balance, send_transaction
+
 
 ################################################################################
 # KryptoJobs2Go Candidate Information
@@ -93,28 +95,28 @@ candidate_database = {
         "0xaC8eB8B2ed5C4a0fC41a84Ee4950F417f67029F0",
         "4.3",
         0.20,
-        "Images/lane.jpeg",
+        "images/lane.jpeg",
     ],
     "Ash": [
         "Ash",
         "0x2422858F9C4480c2724A309D58Ffd7Ac8bF65396",
         "5.0",
         0.33,
-        "Images/ash.jpeg",
+        "images/ash.jpeg",
     ],
     "Jo": [
         "Jo",
         "0x8fD00f170FDf3772C5ebdCD90bF257316c69BA45",
         "4.7",
         0.19,
-        "Images/jo.jpeg",
+        "images/jo.jpeg",
     ],
     "Kendall": [
         "Kendall",
         "0x8fD00f170FDf3772C5ebdCD90bF257316c69BA45",
         "4.1",
         0.16,
-        "Images/kendall.jpeg",
+        "images/kendall.jpeg",
     ],
 }
 
@@ -156,7 +158,7 @@ st.sidebar.markdown("## Client Account Address and Ethernet Balance in Ether")
 
 # @TODO:
 #  Call the `generate_account` function and save it as the variable `account`
-# YOUR CODE HERE
+account = generate_account()
 
 ##########################################
 
@@ -171,8 +173,12 @@ st.sidebar.write(account.address)
 
 # @TODO
 # Call `get_balance` function and pass it your account address
+ether = get_balance(account.address)
+
 # Write the returned ether balance to the sidebar
-# YOUR CODE HERE
+st.sidebar.markdown("## Your Balance of Ether")
+st.sidebar.markdown(ether)
+st.sidebar.markdown("---------")
 
 ##########################################
 
@@ -202,9 +208,6 @@ candidate_address = candidate_database[person][1]
 # Write the inTech Finder candidate's Ethereum Address to the sidebar
 st.sidebar.write(candidate_address)
 
-# Write the KryptoJobs2Go candidate's name to the sidebar
-
-st.sidebar.markdown("## Total Wage in Ether")
 
 ################################################################################
 # Step 2: Sign and Execute a Payment Transaction
@@ -263,11 +266,12 @@ st.sidebar.markdown("## Total Wage in Ether")
 # Calculate total `wage` for the candidate by multiplying the candidate’s hourly
 # rate from the candidate database (`candidate_database[person][3]`) by the
 # value of the `hours` variable
-# YOUR CODE HERE
+wage = candidate_database[person][3] * hours 
 
 # @TODO
 # Write the `wage` calculation to the Streamlit sidebar
-# YOUR CODE HERE
+st.sidebar.markdown("## Total Wage in Ether")
+st.sidebar.write(wage)
 
 ##########################################
 # Step 2 - Part 2:
@@ -294,7 +298,7 @@ if st.sidebar.button("Send Transaction"):
     # Call the `send_transaction` function and pass it 3 parameters:
     # Your `account`, the `candidate_address`, and the `wage` as parameters
     # Save the returned transaction hash as a variable named `transaction_hash`
-    # YOUR CODE HERE
+    transaction_hash = send_transaction(account, candidate_database[person][1], wage)
 
     # Markdown for the transaction hash
     st.sidebar.markdown("#### Validated Transaction Hash")
