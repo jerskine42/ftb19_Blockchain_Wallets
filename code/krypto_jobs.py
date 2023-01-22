@@ -148,7 +148,7 @@ st.text(" \n")
 ################################################################################
 # Streamlit Sidebar Code - Start
 
-st.sidebar.markdown("## Client Account Address and Ethernet Balance in Ether")
+st.sidebar.markdown("## Client Account Address ")
 
 ##########################################
 # Step 1 - Part 4:
@@ -172,12 +172,9 @@ st.sidebar.write(account.address)
 #  pass it your Ethereum `account.address`.
 
 # @TODO
-# Call `get_balance` function and pass it your account address
-ether = get_balance(account.address)
-
 # Write the returned ether balance to the sidebar
-st.sidebar.markdown("## Your Balance of Ether")
-st.sidebar.markdown(ether)
+st.sidebar.markdown("## Client Ethernet Balance in Ether")
+st.sidebar.write(get_balance(w3, account.address))
 st.sidebar.markdown("---------")
 
 ##########################################
@@ -298,7 +295,7 @@ if st.sidebar.button("Send Transaction"):
     # Call the `send_transaction` function and pass it 3 parameters:
     # Your `account`, the `candidate_address`, and the `wage` as parameters
     # Save the returned transaction hash as a variable named `transaction_hash`
-    transaction_hash = send_transaction(account, candidate_database[person][1], wage)
+    transaction_hash = send_transaction(w3, account, candidate_database[person][1], wage)
 
     # Markdown for the transaction hash
     st.sidebar.markdown("#### Validated Transaction Hash")
